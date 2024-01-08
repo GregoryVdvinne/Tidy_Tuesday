@@ -25,9 +25,11 @@ myData <- myData %>%
   mutate(position = case_when(
     position_code == "D" ~ "Defenceman",
     position_code == "G" ~ "Goalie",
-    position_code %in% c("L", "R", "C") ~ "Winger",
+    position_code %in% c("L", "R", "C") ~ "Forward",
     TRUE ~ NA
-    )
+    ),
+    season = substr(as.character(season), nchar(as.character(season))-3, nchar(as.character(season))) %>%
+      as.integer()
   ) %>%
   group_by(position, season) %>%
   summarise(height = mean(height_in_centimeters, na.rm = TRUE),
@@ -38,7 +40,7 @@ myData <- myData %>%
 ######## Setup for Plotting ########
 
 # Save Caption
-myCaption <- c("Data: https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2024/2024-01-09/nhl_rosters.csv ", 
+myCaption <- c("Data: https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2024/2024-01-09/nhl_rosters.csv", 
                "Created by Gregory Vander Vinne")
 
 # Define a color palette
@@ -57,17 +59,17 @@ my_theme <- function(base_size = 10) {
       axis.ticks.y = element_line(color = line_colour ),
       axis.ticks.x = element_blank(),
       legend.position = "top",
-      legend.margin = margin(-12, 0, -8, 0),
+      legend.margin = margin(-6, 0, -8, 0),
       legend.background = element_rect(fill = back_color),
       panel.background = element_rect(fill = back_color),
       plot.background = element_rect(fill = back_color),
       plot.caption.position = "plot",
       plot.title.position = "plot",
-      plot.title = ggtext::element_textbox_simple( face = "bold",
-                                                   size = rel(1.3),
-                                                   # family = "Arial",
-                                                   color = dark_text,
-                                                   margin = margin(5, 0, 12, 0)),
+      plot.title = ggtext::element_textbox_simple( 
+                                                  size = rel(1.5),
+                                                  # family = "Arial",
+                                                  color = dark_text,
+                                                  margin = margin(5, 0, 12, 0)),
       plot.subtitle = ggtext::element_textbox_simple(size = rel(1),
                                                      # family = "Arial",
                                                      colour = light_text,
@@ -86,10 +88,11 @@ my_theme <- function(base_size = 10) {
                                         colour = light_text),
       plot.caption = element_text(size = rel(0.8),
                                            colour = light_text,
-                                           hjust = 0),
+                                           hjust = c(0,1)),
       legend.text = element_text(size = rel(1),
                                           # family = "Arial",
-                                          colour = light_text),
+                                          colour = light_text,
+                                          margin = margin(10, 0, 5, 0)),
       legend.title = element_text(size = rel(1),
                                            # family = "Arial",
                                            colour = light_text),
@@ -101,14 +104,24 @@ my_theme <- function(base_size = 10) {
 
 ######## Plot ########
 
-p <- ggplot(myData, aes(x = season, y = height, color = position)) + 
+p1 <- ggplot(myData, aes(x = season, y = height, color = position)) + 
   geom_line(linewidth = 0.9) +
-  scale_color_manual(values = myPal) + 
-  labs(title = "NHL Players Are Much Taller Than They Were a Century Ago", 
+  scale_color_manual(values = myPal, name = "") + 
+  labs(title = "NHL Players' Heights Over The Years", 
        caption = myCaption) + 
   ylab("Mean Height (Centimeters)") +
   my_theme()
 
-p
+p1
+
+p2 <- ggplot(myData, aes(x = season, y = weight, color = position)) + 
+  geom_line(linewidth = 0.9) +
+  scale_color_manual(values = myPal, name = "") + 
+  labs(title = "NHL Players' Weights Over The Years", 
+       caption = myCaption) + 
+  ylab("Mean Height (Centimeters)") +
+  my_theme()
+
+p2
 
 
