@@ -69,12 +69,13 @@ my_theme <- function(base_size = 10) {
       panel.background = element_rect(fill = back_color),
       plot.background = element_rect(fill = back_color),
       plot.caption.position = "plot",
-      plot.title.position = "plot",
-      plot.title = ggtext::element_textbox_simple( 
+      # plot.title.position = "plot",
+      plot.title = element_text( 
                                                   size = rel(1.5),
                                                   # family = "Signika_Negative",
                                                   color = dark_text,
-                                                  margin = margin(5, 0, 14, 0)),
+                                                  margin = margin(5, 0, 14, 0),
+                                                  hjust = 0.5),
       plot.subtitle = ggtext::element_textbox_simple(size = rel(1),
                                                      # family = "Signika_Negative",
                                                      colour = light_text,
@@ -111,7 +112,7 @@ my_theme <- function(base_size = 10) {
 p1 <- ggplot(myData, aes(x = season, y = height, color = position)) + 
   geom_line(linewidth = 0.9) +
   scale_color_manual(values = myPal, name = "") + 
-  labs(title = "NHL Players' Heights Over The Years", 
+  labs(title = "Player Height", 
        subtitle = "\n", #space for legend in top-left
        caption = myCaption) + 
   ylab("Mean Height (Centimeters)") +
@@ -122,7 +123,7 @@ p1
 p2 <- ggplot(myData, aes(x = season, y = weight, color = position)) + 
   geom_line(linewidth = 0.9) +
   scale_color_manual(values = myPal, name = "") + 
-  labs(title = "NHL Players' Weights Over The Years", 
+  labs(title = "Player Weight", 
        subtitle = "\n", #space for legend in top-left
        caption = myCaption) + 
   ylab("Mean Weight (Kilograms)") +
@@ -135,9 +136,12 @@ plots <- ggarrange(p1, p2)
 
 annotate_figure(
   annotate_figure(plots,
-                  top=text_grob("Subtitle"),
+                  top=text_grob("Subtitle", 
+                                hjust = 18.3),
   ),
-  top=text_grob("Main title")
+  top=text_grob("Main title",
+                hjust = 7.5,
+                size = 24)
 ) + 
   bgcolor(back_color)
 
