@@ -43,9 +43,6 @@ myData <- myData %>%
 #          regular = "C:/USERS/GVAND/APPDATA/LOCAL/MICROSOFT/WINDOWS/FONTS/SignikaNegative-VariableFont_wght.ttf")
 # showtext_auto()
 
-# Save Caption
-myCaption <- c("Data: https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2024/2024-01-09/nhl_rosters.csv", 
-               "Created by Gregory Vander Vinne")
 
 # Define a color palette
 myPal = lighten(c("#57467b", "#558c8c", "#a53f2b", "#726e60"),0.25)
@@ -62,8 +59,8 @@ my_theme <- function(base_size = 10) {
       axis.line = element_line(color = line_colour ),
       axis.ticks.y = element_line(color = line_colour ),
       axis.ticks.x = element_blank(),
-      legend.position = c(0.1,1.04),
-      legend.direction = "horizontal",
+      legend.position = c(0.2,0.9),
+      # legend.direction = "verticle",
       legend.margin = margin(8, 0, 8, 0),
       legend.background = element_rect(fill = back_color),
       panel.background = element_rect(fill = back_color),
@@ -71,11 +68,11 @@ my_theme <- function(base_size = 10) {
       plot.caption.position = "plot",
       # plot.title.position = "plot",
       plot.title = element_text( 
-                                                  size = rel(1.5),
-                                                  # family = "Signika_Negative",
-                                                  color = dark_text,
-                                                  margin = margin(5, 0, 14, 0),
-                                                  hjust = 0.5),
+                                size = rel(1.5),
+                                # family = "Signika_Negative",
+                                color = dark_text,
+                                margin = margin(5, 0, 5, 0),
+                                hjust = 0.5),
       plot.subtitle = ggtext::element_textbox_simple(size = rel(1),
                                                      # family = "Signika_Negative",
                                                      colour = light_text,
@@ -94,7 +91,7 @@ my_theme <- function(base_size = 10) {
                                         colour = light_text),
       plot.caption = element_text(size = rel(0.8),
                                            colour = light_text,
-                                           hjust = c(0,1)),
+                                           hjust = 1),
       legend.text = element_text(size = rel(1),
                                           # family = "Signika_Negative",
                                           colour = light_text),
@@ -114,7 +111,7 @@ p1 <- ggplot(myData, aes(x = season, y = height, color = position)) +
   scale_color_manual(values = myPal, name = "") + 
   labs(title = "Player Height", 
        subtitle = "\n", #space for legend in top-left
-       caption = myCaption) + 
+       caption = "Data: https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2024/2024-01-09") + 
   ylab("Mean Height (Centimeters)") +
   my_theme()
 
@@ -125,9 +122,14 @@ p2 <- ggplot(myData, aes(x = season, y = weight, color = position)) +
   scale_color_manual(values = myPal, name = "") + 
   labs(title = "Player Weight", 
        subtitle = "\n", #space for legend in top-left
-       caption = myCaption) + 
+       caption = "Created by Gregory Vander Vinne") + 
   ylab("Mean Weight (Kilograms)") +
-  my_theme()
+  my_theme() + 
+  theme(
+    plot.caption = element_text(size = rel(0.8),
+                                colour = light_text,
+                                hjust = 0),
+  )
 
 p2
 
@@ -144,5 +146,3 @@ annotate_figure(
                 size = 24)
 ) + 
   bgcolor(back_color)
-
-
