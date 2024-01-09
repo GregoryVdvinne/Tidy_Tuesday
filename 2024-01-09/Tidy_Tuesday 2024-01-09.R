@@ -8,8 +8,8 @@ pacman::p_load(
   tidyverse,      # grammar of data and graphics
   here,           # relative file pathways
   showtext,       # custom fonts
-  ggtect,         # fancy text in plots
-  gganimate,      # animated ggplots  
+  ggtext,         # fancy text in plots
+  ggpubr,         # arrange multiple ggplots together
   colorspace      # fancy stuff with colors  
 )
 
@@ -38,10 +38,10 @@ myData <- myData %>%
 
 ######## Setup for Plotting ########
 
-#Add Signika Negative font family
-font_add(family = "Signika_Negative", 
-         regular = "C:/USERS/GVAND/APPDATA/LOCAL/MICROSOFT/WINDOWS/FONTS/SignikaNegative-VariableFont_wght.ttf")
-showtext_auto()
+# #Add Signika Negative font family
+# font_add(family = "Signika_Negative", 
+#          regular = "C:/USERS/GVAND/APPDATA/LOCAL/MICROSOFT/WINDOWS/FONTS/SignikaNegative-VariableFont_wght.ttf")
+# showtext_auto()
 
 # Save Caption
 myCaption <- c("Data: https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2024/2024-01-09/nhl_rosters.csv", 
@@ -72,15 +72,15 @@ my_theme <- function(base_size = 10) {
       plot.title.position = "plot",
       plot.title = ggtext::element_textbox_simple( 
                                                   size = rel(1.5),
-                                                  family = "Signika_Negative",
+                                                  # family = "Signika_Negative",
                                                   color = dark_text,
                                                   margin = margin(5, 0, 14, 0)),
       plot.subtitle = ggtext::element_textbox_simple(size = rel(1),
-                                                     family = "Signika_Negative",
+                                                     # family = "Signika_Negative",
                                                      colour = light_text,
                                                      margin = margin(-6, 0, 16, 0)), 
       axis.title.y = element_text(size = rel(1),
-                                           family= "Signika_Negative",
+                                           # family= "Signika_Negative",
                                            colour = light_text,
                                            margin = margin(0, 5, 0, 0)),
       # axis.title.x = element_text(size = rel(1),
@@ -89,16 +89,16 @@ my_theme <- function(base_size = 10) {
       #                                      margin = margin(5, 0, 0, 0)),
       axis.title.x = element_blank(),
       axis.text = element_text(size = rel(0.9),
-                                        family = "Signika_Negative",
+                                        # family = "Signika_Negative",
                                         colour = light_text),
       plot.caption = element_text(size = rel(0.8),
                                            colour = light_text,
                                            hjust = c(0,1)),
       legend.text = element_text(size = rel(1),
-                                          family = "Signika_Negative",
+                                          # family = "Signika_Negative",
                                           colour = light_text),
       legend.title = element_text(size = rel(1),
-                                           family = "Signika_Negative",
+                                           # family = "Signika_Negative",
                                            colour = light_text),
       text = element_text(colour = light_text, lineheight = 1.1)
     )
@@ -131,14 +131,14 @@ p2 <- ggplot(myData, aes(x = season, y = weight, color = position)) +
 p2
 
 
-ggplot(myData, aes(x = weight, y = height, color = season)) + 
-  geom_point() +
-  # scale_color_manual(values = myPal, name = "") + 
-  labs(title = "The Size of NHL Players Over The Years", 
-       subtitle = "\n", #space for legend in top-left
-       caption = myCaption) + 
-  ylab("Mean Height (Centimeters)") +
-  xlab("Mean Weight (Kilograms)") +
-  my_theme()
+plots <- ggarrange(p1, p2)
+
+annotate_figure(
+  annotate_figure(plots,
+                  top=text_grob("Subtitle"),
+  ),
+  top=text_grob("Main title")
+) + 
+  bgcolor(back_color)
 
 
