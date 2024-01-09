@@ -146,3 +146,4 @@ annotate_figure(
                 size = 24)
 ) + 
   bgcolor(back_color)
+
