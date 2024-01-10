@@ -6,10 +6,8 @@ rm(list = ls(all=T))
 if (!require("pacman")) install.packages("pacman")
 pacman::p_load(
   tidyverse,      # grammar of data and graphics
-  here,           # relative file pathways
   showtext,       # custom fonts
   ggtext,         # fancy text in plots
-  ggpubr,         # arrange multiple ggplots together
   colorspace      # fancy stuff with colors  
 )
 
@@ -123,7 +121,6 @@ p <- ggplot(myData) +
              ) + 
   geom_line(linewidth = 0.9, aes(x = season, y = value, color = position)) +
   geom_text(data = textData, 
-            # family = "Signika_Negative", 
             mapping = aes(x = 1971, y = Inf, label = label),
             vjust   = 1.5, 
             size = 11.5/.pt,
