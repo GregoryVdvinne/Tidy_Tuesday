@@ -37,11 +37,11 @@ myData <- myData %>%
 mean_places <- colMeans(myData[,-1]) %>%
   t() %>%
   as.data.frame() %>%
-  mutate(state = "TOT")
+  mutate(state = "AVG")
 
 #Combine with myData and add dummy indicating overall mean
 myData <- rbind(myData, mean_places) %>%
-  mutate(mean = if_else(state == "TOT", TRUE, FALSE)) %>% # must have data for both years
+  mutate(mean = if_else(state == "AVG", TRUE, FALSE)) %>% # must have data for both years
   pivot_longer(cols = c(`2016`,`2020`),
                names_to = "year", values_to = "n_places")
 
@@ -96,6 +96,7 @@ my_theme <- function(base_size = 10) {
                                colour = weak_text),
       plot.caption = element_text(size = rel(0.8),
                                   colour = weak_text,
+                                  family = "Roboto",
                                   hjust = c(0,1)),
       legend.text = element_text(size = rel(1),
                                  family = "Roboto",
@@ -103,12 +104,7 @@ my_theme <- function(base_size = 10) {
       legend.title = element_text(size = rel(1),
                                   family = "Roboto",
                                   colour = weak_text),
-      text = element_text(colour = weak_text, lineheight = 1.1), 
-      strip.background = element_blank(), 
-      strip.placement = "outside", 
-      strip.text = element_text(size = rel(1),
-                                family = "Roboto",
-                                colour = weak_text)
+      text = element_text(colour = weak_text, lineheight = 1.1)
     )
 }
 
@@ -116,7 +112,7 @@ my_theme <- function(base_size = 10) {
 
 ggplot(myData, aes(x = reorder(state,latest), y = n_places)) + 
   geom_line(color = myPal[4], alpha = 0.5, linewidth = 3.5) +  # we want thick line
-  geom_point(aes(color = year, shape = mean), size = 3.5) +  # Big dots
+  geom_point(aes(color = year, shape = mean), size = 3.5, alpha = 0.7) +  # Big dots
   coord_flip() +
   scale_color_manual(values = myPal, name = "Election Year:") +
   scale_shape_manual(values = c(16,15), guide = "none") +
