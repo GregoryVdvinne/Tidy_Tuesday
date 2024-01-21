@@ -73,7 +73,7 @@ my_theme <- function(base_size = 10) {
       axis.line = element_blank(),
       panel.grid.major.y = element_line(color = line_colour),
       axis.ticks = element_blank(),
-      legend.position = c(0.065,1.04),
+      legend.position = c(0.1,1.02),
       legend.direction = "horizontal",
       legend.margin = margin(8, 0, 8, 0),
       legend.background = element_rect(fill = back_colour),
@@ -120,20 +120,20 @@ ggplot(myData, aes(x = reorder(state,latest), y = n_places)) +
   coord_flip() +
   scale_color_manual(values = myPal, name = "Election Year:") +
   scale_shape_manual(values = c(16,15), guide = "none") +
+  scale_y_continuous(labels = scales::comma)+
   ggtitle(paste("Number of Polling Places by State in ",
-                     "<span style='color:", myPal[1], "'>2016 </span>", 
+                     "<span style='color:", myPal[1], "'>2016</span>", 
                      "and", 
                      "<span style='color:", myPal[2], "'>2020 </span>"), 
-          subtitle = "This dumbbell plot shows the number of polling places in
-                        states for which data are available for the last two 
-                        American presidential elections. Overall, the number of 
-                        polling places was slightly down in these states. The 
-                        overall decline was driven by large decreases Minnesota, 
-                        Maryland, and Indiana.") +
+          subtitle = "This dumbbell plot shows the number of polling places in states for which data are available for the last 
+                      two American presidential elections. Overall, the number of polling places was slightly down in these 
+                      states. The overall decline was driven by large decreases in Minnesota, Maryland, and Indiana. Most states
+                      saw very small changes.") +
+  labs(caption = myCaption) + 
   my_theme()
 
-
-
+# Puts huge spaces between lines of subtitle. Saved manually
+# ggsave(here("2024-01-16/2024-01-16_Plot.png"))
 
 
 
