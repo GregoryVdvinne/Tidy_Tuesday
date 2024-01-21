@@ -73,7 +73,7 @@ my_theme <- function(base_size = 10) {
       axis.line = element_blank(),
       panel.grid.major.y = element_line(color = line_colour),
       axis.ticks = element_blank(),
-      legend.position = c(0.1,1.02),
+      legend.position = c(0.1,1.025),
       legend.direction = "horizontal",
       legend.margin = margin(8, 0, 8, 0),
       legend.background = element_rect(fill = back_colour),
