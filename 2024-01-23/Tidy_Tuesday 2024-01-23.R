@@ -128,7 +128,7 @@ ggplot(myData, aes(x = income_flag, y = education_score,
        y-axis illustrates how many towns in that income deprivation category 
        have educational scores at that level. The density
        plot on the side shows the distribution of education scores 
-       for coastal and non-coastal towns. We see that you in
+       for coastal and non-coastal towns. We see that youth in
        towns with higher levels of income deprivation (poorer towns) tend to have
        lower education scores. Furthermore, coastal 
        towns are more likely to be in the higher income deprivation category and
