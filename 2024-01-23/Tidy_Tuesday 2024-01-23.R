@@ -44,11 +44,15 @@ strong_text = "#D2D8DD"
 weak_text = darken(strong_text, 0.2)
 
 
-#Add Roboto font family
-font_add(family = "Roboto", 
-         regular = "C:/USERS/GVAND/APPDATA/LOCAL/MICROSOFT/WINDOWS/FONTS/ROBOTO-REGULAR.ttf",
-         bold = "C:/USERS/GVAND/APPDATA/LOCAL/MICROSOFT/WINDOWS/FONTS/ROBOTO-BOLD.ttf")
+# #Add Roboto font family
+# font_add(family = "Roboto", 
+#          regular = "C:/USERS/GVAND/APPDATA/LOCAL/MICROSOFT/WINDOWS/FONTS/ROBOTO-REGULAR.ttf",
+#          bold = "C:/USERS/GVAND/APPDATA/LOCAL/MICROSOFT/WINDOWS/FONTS/ROBOTO-BOLD.ttf")
+# showtext_auto()
+
+font_add_google("Roboto", "roboto")
 showtext_auto()
+
 
 # For centering  x axis title under main plot
 my_scale <- 0.135
@@ -136,7 +140,7 @@ ggplot(myData, aes(x = income_flag, y = education_score,
   my_theme()
 
 
-ggsave(here("2024-01-23.jpeg"))
+ggsave(here("2024-01-23/2024-01-23.jpeg"))
 
 
 
