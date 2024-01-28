@@ -120,26 +120,26 @@ ggplot(myData, aes(x = income_flag, y = education_score,
   scale_ysidex_continuous(breaks = NULL) +
   scale_color_manual(values = myPal, name = "", labels = c("Coastal Towns", "Non-Coastal Towns")) +
   scale_fill_manual(values = myPal, name = "", labels = c("Coastal Towns", "Non-Coastal Towns")) +
-  labs(title = "Income Deprivation and Educational Acheivement of Youth in English Towns", 
-       subtitle = "In this beeswarm plot, each point represents a town in the
+  labs(title = "Income Deprivation and Educational Achievement of Youth in English Towns", 
+       subtitle = "In this beeswarm plot, each point represents a town in
        England. The towns are grouped according to their income deprivation category
-       along the x-axis, while the towns education scores fo towns are
+       along the x-axis. The education scores of the towns are
        given on the y-axis. The width of each swarm at any given point on the 
        y-axis illustrates how many towns in that income deprivation category 
-       have educational scores at that level. The marginal density
+       have educational scores at that level. The density
        plot on the side shows the distribution of education scores 
-       for coastal and non-coastal towns. We see that
+       for coastal and non-coastal towns. We see that you in
        towns with higher levels of income deprivation (poorer towns) tend to have
-       lower educational acheivement scores and vice versa. Furthermore, coastal 
+       lower education scores. Furthermore, coastal 
        towns are more likely to be in the higher income deprivation category and
-       tend to have lower educational scores.",
+       tend to have lower education scores.",
        caption = myCaption) + 
   ylab("Education Score") + 
   xlab("Level of Income Deprivation") + 
   my_theme()
 
-# Puts huge spaces between lines of subtitle. Saved manually
-ggsave(here("2024-01-23/2024-01-23.png"))
+# # Puts huge spaces between lines of subtitle. Saved manually
+# ggsave(here("2024-01-23/2024-01-23.png"))
 
 
 
