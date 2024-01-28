@@ -122,14 +122,13 @@ ggplot(myData, aes(x = income_flag, y = education_score,
   scale_fill_manual(values = myPal, name = "", labels = c("Coastal Towns", "Non-Coastal Towns")) +
   labs(title = "Income Deprivation and Educational Acheivement of Youth in English Towns", 
        subtitle = "In this beeswarm plot, each point represents a town in the
-       UK. The towns are grouped according to their income deprivation category
-       along the x-axis, while the towns'education scores are
-       given on the y-axis. The width of each 'swarm'at any given point on the 
+       England. The towns are grouped according to their income deprivation category
+       along the x-axis, while the towns education scores fo towns are
+       given on the y-axis. The width of each swarm at any given point on the 
        y-axis illustrates how many towns in that income deprevation category 
        have educational scores at that level. The marginal density
        plot on the side shows the distribution of education scores 
-       for coastal
-       and non-coastal towns. We see that
+       for coastal and non-coastal towns. We see that
        towns with higher levels of income deprevation (poorer towns) tend to have
        lower educational acheivement scores and vice versa. Furthermore, coastal 
        towns are more likely to be in the higher income deprevation category and
