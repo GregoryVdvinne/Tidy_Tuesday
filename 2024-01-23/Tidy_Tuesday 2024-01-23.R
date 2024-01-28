@@ -80,7 +80,7 @@ my_theme <- function(base_size = 10) {
                                           margin = margin(5, 0, 10, 0)),
       plot.subtitle = element_textbox_simple(size = rel(1.1),
                                              family = "Roboto",
-                                             colour = strong_text,
+                                             colour = weak_text,
                                              margin = margin(0, 0, 28, 0)), 
       axis.title.x = element_text(size = rel(1.1),
                                 family = "Roboto",
