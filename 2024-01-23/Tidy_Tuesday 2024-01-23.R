@@ -120,7 +120,7 @@ ggplot(myData, aes(x = income_flag, y = education_score,
   scale_ysidex_continuous(breaks = NULL) +
   scale_color_manual(values = myPal, name = "", labels = c("Coastal Towns", "Non-Coastal Towns")) +
   scale_fill_manual(values = myPal, name = "", labels = c("Coastal Towns", "Non-Coastal Towns")) +
-  labs(title = "Income Deprivation and Educational Acheivement of Youth in UK Towns", 
+  labs(title = "Income Deprivation and Educational Acheivement of Youth in English Towns", 
        subtitle = "In this beeswarm plot, each point represents a town in the
        UK. The towns are grouped according to their income deprivation category
        along the x-axis, while the towns'education scores are
@@ -139,8 +139,8 @@ ggplot(myData, aes(x = income_flag, y = education_score,
   xlab("Level of Income Deprivation") + 
   my_theme()
 
-
-ggsave(here("2024-01-23/2024-01-23.jpeg"))
+# Puts huge spaces between lines of subtitle. Saved manually
+ggsave(here("2024-01-23/2024-01-23.png"))
 
 
 
