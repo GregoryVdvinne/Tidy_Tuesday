@@ -32,7 +32,7 @@ myData <- myData %>%
 
 ######## Set Up For Plotting ########
 
-# Save color palette that looks like RStudio's cobalt
+# Save color palette
 
 myPal <- c("#BF40BF", "white")
 myCaption <- glue("<b> Data: </b> UK Office", " ", "for National Statistics",
