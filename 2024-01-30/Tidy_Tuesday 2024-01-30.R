@@ -134,11 +134,11 @@ ggplot() +
   geom_curve(
     data = data.frame(x2 = phil$longitude,
                       x1 = -73,
-                      y2 = phil$latitude-0.35,
+                      y2 = phil$latitude-0.4,
                       y1 = 37),
     mapping = aes(x = x1, y = y1, xend = x2, yend = y2),
     arrow = arrow(length = unit(0.03, "npc")),
-    colour = lighten(weak_text,0.2),
+    colour = lighten(weak_text,0.3),
     curvature = -0.2
   ) +
   labs(title = paste0("Which Groundhogs Tend to Predict ", 
@@ -147,8 +147,8 @@ ggplot() +
                      "<span style='color:", myPal[2], "'>Early Spring</span>", "?"), 
        subtitle = "On this map, each dot represents a groundhog that makes predictions on Groundhog Day. 
        Bigger dots represent groundhogs that have been making predictions for more years. 
-       Dots that are more red represent groundhogs that predict longer winters a higher share of the time.
-       Dots that are more blue represent groundhogs that predict early springs a higher share of the time. 
+       Dots that are more red represent groundhogs that predict a longer winter a higher share of the time.
+       Dots that are more blue represent groundhogs that predict an early spring a higher share of the time. 
        A completely grey dot would represent a groundhog that predicts each outcome evenly.", 
        caption = myCaption) + 
   scale_y_continuous(limits = c(30,52)) +
