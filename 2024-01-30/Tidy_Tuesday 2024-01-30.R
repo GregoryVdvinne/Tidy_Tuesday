@@ -141,10 +141,10 @@ ggplot() +
     colour = lighten(weak_text,0.2),
     curvature = -0.2
   ) +
-  labs(title = paste("Which Groundhogs Tend to Predict", 
+  labs(title = paste0("Which Groundhogs Tend to Predict ", 
                      "<span style='color:", myPal[1], "'>More Winter</span>", 
-                     "Versus an", 
-                     "<span style='color:", myPal[2], "'>Early Spring </span>"), 
+                     " Versus an ", 
+                     "<span style='color:", myPal[2], "'>Early Spring</span>", "?"), 
        subtitle = "On this map, each dot represents a groundhog that makes predictions on Groundhog Day. 
        Bigger dots represent groundhogs that have been making predictions for more years. 
        Dots that are more red represent groundhogs that predict longer winters a higher share of the time.
