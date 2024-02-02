@@ -65,9 +65,6 @@ my_theme <- function(base_size = 10) {
     theme(
       axis.line = element_blank(),
       axis.ticks = element_blank(),
-      # legend.position = c(0.99,0.25),
-      # legend.margin = margin(0, 0, 0, 0),
-      # legend.background = element_rect(fill = back_colour),
       legend.position = "none",
       panel.background = element_rect(fill = back_colour),
       plot.background = element_rect(fill = back_colour),
