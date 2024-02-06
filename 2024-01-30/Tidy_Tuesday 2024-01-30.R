@@ -60,7 +60,7 @@ showtext_auto()
 
 
 # Define Theme
-my_theme <- function(base_size = 10) {
+my_theme <- function(base_size = 24) {
   theme_classic(base_size = base_size)+
     theme(
       axis.line = element_blank(),
@@ -74,11 +74,12 @@ my_theme <- function(base_size = 10) {
                                           family = "Cabin",
                                           # face = "bold",
                                           color = strong_text,
-                                          margin = margin(5, 0, 10, 0)),
+                                          margin = margin(5, 0, 8, 0)),
       plot.subtitle = element_textbox_simple(size = rel(1.1),
                                              family = "Cabin",
                                              colour = weak_text,
-                                             margin = margin(0, 0, 28, 0)), 
+                                             margin = margin(0, 0, 20, 0), 
+                                             lineheight=0.4), 
       axis.title = element_blank(),
       axis.text= element_blank(),
       plot.caption = element_markdown(size = rel(0.8),
@@ -91,7 +92,7 @@ my_theme <- function(base_size = 10) {
       legend.title = element_text(size = rel(1),
                                   family = "Cabin",
                                   colour = weak_text),
-      text = element_text(colour = weak_text, lineheight = 1.1)
+      text = element_text(colour = weak_text, lineheight = 0.5)
     )
 }
 
@@ -125,18 +126,18 @@ ggplot() +
     mapping = aes(x = x, y = y, label = myAnnotation),
     family = "Cabin",
     colour = weak_text,
-    size = 3,
-    lineheight = 0.85
+    size = 7,
+    lineheight = 0.3
   ) +
   geom_curve(
     data = data.frame(x2 = phil$longitude,
-                      x1 = -73,
-                      y2 = phil$latitude-0.4,
+                      x1 = -72,
+                      y2 = phil$latitude-0.61,
                       y1 = 37),
     mapping = aes(x = x1, y = y1, xend = x2, yend = y2),
     arrow = arrow(length = unit(0.03, "npc")),
     colour = lighten(weak_text,0.3),
-    curvature = -0.2
+    curvature = -0.3
   ) +
   labs(title = paste0("Which Groundhogs Tend to Predict ", 
                      "<span style='color:", myPal[1], "'>More Winter</span>", 
@@ -154,4 +155,4 @@ ggplot() +
                        midpoint = 0.5, mid = "grey45") + 
   my_theme()
 
-ggsave(here)
+ggsave(here("2024-01-30/2024-01-30.png"))
