@@ -43,7 +43,7 @@ flagPal <-  c("#ED4C5C","#418BC1","#FFE62E" )
 back_colour = "white"
 line_colour = "#D7DDE1"
 weak_text = "#7A8092"
-strong_text = darken(weak_text, 0.5)
+strong_text = darken(weak_text, 0.45)
 
 
 # Add custom font family
@@ -103,12 +103,12 @@ ggplot(myData_long,
   geom_segment(x = 2022, xend = 2022,
                y = 0, yend = 35, 
                color = line_colour, linewidth = 0.75) + 
-  geom_stratum(width = 0.2, color = "white") +
+  geom_stratum(width = 0.2, color = back_colour) +
   geom_flow(stat = "alluvium",
             knot.pos = 0.25, # dictates how curvey it is
             width = -0.2, # dictates distance between flow and stratum
             alpha = 0.9,
-            color = "white") +
+            color = back_colour) +
   geom_text(
     data = data.frame(
       x = c(2004, 2022),
@@ -124,7 +124,7 @@ ggplot(myData_long,
   geom_text(inherit.aes = FALSE,
             aes(y = label_height, label = if_else(year == 2022, abv, "")), x = 2020,
             family = "roboto",
-            colour = "white",
+            colour = back_colour,
             size = 6*2.4) + 
   geom_text(inherit.aes = FALSE,
             aes(y = label_height, x = if_else(year == min(year), year-0.7, year+0.7),
@@ -145,7 +145,7 @@ ggsave(here("2024-02-06/2024-02-06_alluvial.png"))
 
 ######## The ?Staircase? Plot ########
 
-steps <- data.frame(steps = seq(0.5,18, by = 1), 
+stepsData <- data.frame(steps = seq(0.5,18, by = 1), 
                     numbers  = seq(1,18, by = 1))
 
 ggplot() + 
@@ -160,9 +160,9 @@ ggplot() +
              angle = 60,
              arrow = arrow(length = unit(0.03, "npc")),
              linewidth = 0.7) +
-  geom_step(data = steps, aes(x = steps, y=steps), color = strong_text) +
-  geom_text(data = steps, aes(x = numbers, y = numbers-1.25, label =  numbers),
-            fontface = if_else(steps$numbers %in% myData_wide$`2022`, "bold", "plain"),
+  geom_step(data = stepsData, aes(x = steps, y=steps), color = strong_text) +
+  geom_text(data = stepsData, aes(x = numbers, y = numbers-1.25, label =  numbers),
+            fontface = if_else(stepsData$numbers %in% myData_wide$`2022`, "bold", "plain"),
             color = strong_text, size = 6*2.4, family = "Roboto") + 
   labs(title = "Number of Unesco World Heritage Sites in 2004 and 2022",
        caption = glue("<b> Data: </b> Unesco.org",
