@@ -128,11 +128,12 @@ ggplot(myData_long,
             size = 6*2.4) + 
   geom_text(inherit.aes = FALSE,
             aes(y = label_height, x = if_else(year == min(year), year-0.7, year+0.7),
-                label = sites),
+                label = sites, color = country),
             family = "roboto",
-            colour = weak_text,
+            # colour = weak_text,
             size = 6*2.4) + 
   scale_fill_manual(values = myPal) +
+  scale_color_manual(values = myPal) +
   scale_x_continuous(limits = c(2002,2024)) +
   labs(title = "Number of Unesco World Heritage Sites in Denmark, Norway, and Sweden", 
        caption = glue("<b> Data: </b> Unesco.org",
