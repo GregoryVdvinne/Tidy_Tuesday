@@ -1,7 +1,7 @@
 # Clear memory
 rm(list = ls(all=T))
 
-devtools::install_github("jimjam-slam/ggflags")
+# devtools::install_github("jimjam-slam/ggflags")
 
 # Load packages and install if not installed
 if (!require("pacman")) install.packages("pacman")
