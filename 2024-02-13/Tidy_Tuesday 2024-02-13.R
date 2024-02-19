@@ -116,7 +116,7 @@ ggplot(data = myData, aes(x = Year, y = reorder(Category, rank_22), size = Spend
        subtitle = "In this figure, the size and color of the hearts represent the 
        amount that the average person surveyed spent on each category of gift in
        the given year. Larger, darker hearts represent more spending, while
-       smallar, lighter hearts represent less spending.",
+       smaller, lighter hearts represent less spending.",
        caption = paste("Data: US National Retail Federation",
                        "  \n Graphic: Gregory Vander Vinne")) + 
   xlab("") +
