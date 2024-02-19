@@ -9,10 +9,7 @@ pacman::p_load(
   here,           # relative file pathways
   showtext,       # custom fonts
   ggtext,         # fancy text in plots
-  colorspace,     # fancy stuff with colors 
-  emojifont,      # emojis in geom_text
-  glue           # text concatanation w/ formatting
-
+  colorspace      # fancy stuff with colors 
 )
 
 
