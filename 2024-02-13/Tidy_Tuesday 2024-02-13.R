@@ -55,8 +55,6 @@ showtext_auto()
 # Save color palette
 
 myPal <- c("#f97e66", "#d03d00")
-myCaption <- glue("<b> Data: </b> UK Office", " ", "for National Statistics",
-                  "  \n <b> Graphic: </b> Gregory Vander Vinne")
 
 back_colour = "#a5cbd8"
 line_colour = lighten(back_colour, 0.2)
