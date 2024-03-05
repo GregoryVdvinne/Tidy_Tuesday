@@ -33,7 +33,7 @@ births <- births %>%
   filter(!str_detect(word, "\\d")) %>% # remove words containing numbers
   mutate(word = str_to_title(word))
 
-# Get the twenty most common words
+# Get the ten most common words
 common_words <- births %>%
   group_by(word) %>%
   summarise(count = n()) %>%
