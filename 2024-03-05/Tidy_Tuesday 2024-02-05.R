@@ -135,9 +135,7 @@ p + geom_text(
   size = 3, 
   color = darken(back_colour,0.1), 
   fontface = "bold"
-  
-) + 
-  guides(fill = guide_legend(reverse = TRUE))
+)
 
 ## Save the plot
 
