@@ -6,7 +6,6 @@ rm(list = ls(all=T))
 if (!require("pacman")) install.packages("pacman")
 pacman::p_load(
   tidyverse,      # grammar of data and graphics
-  tidytext,       # text mining with tidy data formats
   here,           # relative file pathways
   showtext,       # custom fonts
   ggtext,         # fancy text in plots
