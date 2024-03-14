@@ -98,11 +98,11 @@ my_theme <- function(base_size = 10) {
 # Save some text
 mySubtitle <- "Fiscal sponsorship is a supportive partnership where a tax-exempt 
 nonprofit organization (the fiscal sponsor) provides another organization or 
-projectfinancial support. The Fiscal Sponsor Directory provides information
+project financial support. The Fiscal Sponsor Directory provides information
 about fiscal sponsors. This figure shows which words tend to be used next to one
-another in the directory's descriptions of fiscal sponsors. Fiscal Sponsorship is the most 
-common word combination, while Non-profit Organization and Social Change and
-second and third most common, respectively"
+another in the directory&apos;s descriptions of fiscal sponsors. &quot;Fiscal Sponsorship&quot; is the most 
+common word combination, while &quot;Non-profit Organization&quot; and &quot;Social Change&quot; are
+second and third most common, respectively."
 
 set.seed(2016)
 a <- grid::arrow(type = "closed", length = unit(.15, "inches"))
@@ -111,7 +111,7 @@ myBigrams %>%
   filter(n > 6) %>% 
   graph_from_data_frame() %>%
   ggraph(layout = "fr") +
-  geom_node_point(color = myPal[1], size = 5) +
+  geom_node_point(color = myPal[1], size = 5.5) +
   geom_edge_link(aes(edge_alpha = log(n)),
                  color = weak_text,
                  show.legend = FALSE, 
