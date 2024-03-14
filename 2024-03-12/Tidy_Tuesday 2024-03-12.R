@@ -104,7 +104,7 @@ another in the directory&apos;s descriptions of fiscal sponsors. &quot;Fiscal Sp
 common word combination, while &quot;Non-profit Organization&quot; and &quot;Social Change&quot; are
 second and third most common, respectively."
 
-set.seed(2016)
+set.seed(97)
 a <- grid::arrow(type = "closed", length = unit(.15, "inches"))
 
 myBigrams %>%
