@@ -12,7 +12,7 @@ pacman::p_load(
   ggtext,         # fancy text in plots
   paletteer,      # color palettes and more
   ggraph,         # Network graphs
-  igraph,         # igraph yougraph weallgraph for icecream
+  igraph,         # Network graphs also
   colorspace      # fancy stuff with colors 
 )  
 
