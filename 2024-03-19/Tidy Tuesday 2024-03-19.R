@@ -10,6 +10,7 @@ pacman::p_load(
   showtext,       # custom fonts
   ggtext,         # fancy text in plots
   paletteer,      # color palettes and more
+  ggchicklet,     # Rounded corners or bar graph
   colorspace      # fancy stuff with colors 
 )  
 
@@ -68,8 +69,9 @@ main_font = "Bangers"
 # The Actual Plot --------------------------------------------------------------
 
 ggplot(myData, aes(x = Decade, y = ppi_ebay)) +
-  geom_bar(stat = "identity", position = "dodge", 
-           fill = colColour, color = colColour) + 
+  geom_chicklet(stat = "identity", position = "dodge", 
+           fill = colColour, color = colColour, 
+           radius = grid::unit(0.5, "mm")) + # Very Slightly Rounded
   coord_flip() + 
   facet_wrap(Member ~ ., ncol = 1) +
   labs(title = "Mutant Moneyball", 
