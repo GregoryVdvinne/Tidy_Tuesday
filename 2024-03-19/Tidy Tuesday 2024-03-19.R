@@ -1,6 +1,7 @@
 # Clear memory
 rm(list = ls(all=T))
 
+# install.packages("ggchicklet", repos = "https://cinc.rud.is")
 
 # Load packages and install if not installed
 if (!require("pacman")) install.packages("pacman")
