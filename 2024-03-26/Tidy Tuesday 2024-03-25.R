@@ -98,7 +98,7 @@ ggplot() +
            width = 0.1) + 
   geom_point(data = myData, 
              aes(x = reorder(team, -abs_pase), y = pase),
-             size = 12, fill = back_colour, colour = weak_text, shape = 21) +
+             size = 13.5, fill = back_colour, colour = weak_text, shape = 21) +
   geom_cfb_logos(data = myData, 
                  aes(x = reorder(team, -abs_pase), y = pase, team = team),
                  width = 0.05, height = 0.065, alpha = 1) + 
