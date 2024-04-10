@@ -1,3 +1,7 @@
+
+# ggtext seems to be incompatible with gganimate. That is why there is a lot of commented-out code.  
+  # I would appreciate insight if anyone has some!
+
 # Clear memory
 rm(list = ls(all=T))
 
@@ -39,7 +43,6 @@ eclipse_data <- readr::read_csv('https://raw.githubusercontent.com/rfordatascien
 
 # Get some city populations (Thanks Georgios Karamanis for sharing)
 eclipse_data <- maps::us.cities %>% 
-  # filter(pop > 100000) %>% 
   mutate(
     name = substr(name, 1, nchar(name) - 2) %>% trimws()) %>%
   select(name, pop) %>%
@@ -63,18 +66,20 @@ borders <- rnaturalearth::ne_states("united states of america") %>%
 myPal <- paletteer::paletteer_d("futurevisions::atomic_orange")
 
 back_colour =  myPal[3]
-strong_text = "black"
+strong_text = lighten("black",0.1)
 weak_text = lighten(strong_text, 0.25)
 
 # Fonts
 
-# # Main Font
-font_add_google("Roboto", "roboto")
+# Main Font
+font_add(family = "Roboto", 
+         regular = "C:/USERS/GVAND/APPDATA/LOCAL/MICROSOFT/WINDOWS/FONTS/ROBOTO-REGULAR.ttf",
+         bold = "C:/USERS/GVAND/APPDATA/LOCAL/MICROSOFT/WINDOWS/FONTS/ROBOTO-BOLD.ttf")
 
 
-# Symbols
-font_add(family = "Font Awesome 6 Brands",
-         regular = "C:/USERS/GVAND/APPDATA/LOCAL/MICROSOFT/WINDOWS/FONTS/Font Awesome 6 Brands-Regular-400.otf")
+# # Symbols
+# font_add(family = "Font Awesome 6 Brands",
+#          regular = "C:/USERS/GVAND/APPDATA/LOCAL/MICROSOFT/WINDOWS/FONTS/Font Awesome 6 Brands-Regular-400.otf")
 
 # Make the fonts work
 showtext_auto()
@@ -83,24 +88,26 @@ main_font = "Roboto"
 
 # Save Some Stuff for the plot -------------------------------------------------
 
-github_icon <- "&#xf09b"
-github_username <- "GregoryVdvinne"
+# github_icon <- "&#xf09b"
+# github_username <- "GregoryVdvinne  "
+# 
+# twitter_icon <- "\uf099"
+# twitter_username <- "@GregoryVdvinne  "
+# 
+# linkedin_icon <- "\uf08c"
+# linkedin_username <- "Gregory Vander Vinne"
+# 
+# 
+# my_caption <- glue("<b>Data: </b> NASA Scientific Visualization Stuido   ",
+#                    " \n <b>Graphic: </b>",
+#                    "<span style='font-family:\"Font Awesome 6 Brands\";'>{github_icon};</span>
+#                    <span style='color: #3B3B3B'>{github_username}</span>   ",
+#                    "<span style='font-family:\"Font Awesome 6 Brands\";'>{twitter_icon};</span>
+#                    <span style='color: #3B3B3B'>{twitter_username}  </span>   ",
+#                    "<span style='font-family:\"Font Awesome 6 Brands\";'>{linkedin_icon};</span>
+#                    <span style='color: #3B3B3B'>{linkedin_username}</span>")
 
-twitter_icon <- "\uf099"
-twitter_username <- "@GregoryVdvinne"
-
-linkedin_icon <- "\uf08c"
-linkedin_username <- "Gregory Vander Vinne"
-
-
-my_caption <- glue("<b>Data: </b> NASA's Scientific Visualization Stuido   ",
-                   " \n <b>Graphic: </b>",
-                   "<span style='font-family:\"Font Awesome 6 Brands\";'>{github_icon};</span>
-                   <span style='color: #3B3B3B'>{github_username}  </span>",
-                   "<span style='font-family:\"Font Awesome 6 Brands\";'>{twitter_icon};</span>
-                   <span style='color: #3B3B3B'>{twitter_username}  </span>",
-                   "<span style='font-family:\"Font Awesome 6 Brands\";'>{linkedin_icon};</span>
-                   <span style='color: #3B3B3B'>{linkedin_username}</span>")
+my_caption <- (c("Data: NASA Scientific Visualization Studio", "Graphic: Gregory Vander Vinne"))
 
 
 # # Record Plot Making (My first time doing so)-----------------------------------
@@ -126,12 +133,12 @@ p <- ggplot() +
                  ), 
              alpha = 0.75,
              color = myPal[2])+
-  # transition_components(eclipse_data$middle_time,
-  #                       enter_length = mean(eclipse_data$enter_time),
-  #                       exit_length = mean(eclipse_data$exit_time)
-  #                       ) +
-  # enter_fade() +
-  # exit_fade() +
+  transition_components(eclipse_data$middle_time,
+                        enter_length = mean(eclipse_data$enter_time),
+                        exit_length = mean(eclipse_data$exit_time)
+                        ) +
+  enter_fade() +
+  exit_fade() +
   labs(title = "2024's Total Solar Eclipse in American Cities", 
        caption  = my_caption) +
   scale_y_continuous(limits = c(min(eclipse_data$lat) - 2.5, max(eclipse_data$lat) + 2)) +
@@ -145,8 +152,8 @@ p <- ggplot() +
                                    colour = back_colour),
     plot.caption.position = "plot",
     plot.title.position = "plot",
-    plot.title = element_textbox_simple(size = rel(2.5),
-                                        family = main_font,
+    plot.title = element_text(size = rel(2.5),
+                                        family = main_font, 
                                         face = "bold",
                                         color = strong_text,
                                         margin = margin(4, 0, 12, 4)),
@@ -159,28 +166,26 @@ p <- ggplot() +
     axis.title.y = element_blank(),
     axis.text.y = element_blank(),
     axis.text.x = element_blank(),
-    plot.caption = element_textbox_simple(size = rel(0.8),
-                                          colour = weak_text,
-                                          family = "Roboto",
-                                          margin = margin(8,4,0,0)),
+    # plot.caption = element_textbox_simple(size = rel(0.8),
+    #                                       colour = weak_text,
+    #                                       family = "Roboto",
+    #                                       margin = margin(8,4,0,0)),
+    plot.caption = element_text(size = rel(0.8),
+                                colour = weak_text,
+                                family = "Roboto",
+                                hjust = c(0,1),
+                                margin = margin(8,4,0,0)),
     legend.position = "none"
   )
 
-# gc()
-# 
-# p
-
+# free up some memory to speed up
 gc()
 
+# Better FPS etc
 animate(p, duration = 20, fps  = 20,
         height = 700, width = 1000)
 
-
-# For ggsave text sizing
-# showtext_opts(dpi = 300)
+# Save it
 anim_save(here("2024-04-09/2024-04-09.gif"))
 
-
-# Save plot
-# ggsave(here("2024-04-09/2024-04-09.png"), plot = p)
 
