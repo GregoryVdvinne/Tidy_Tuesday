@@ -182,7 +182,7 @@ p <- ggplot() +
 gc()
 
 # Better FPS etc
-animate(p, duration = 20, fps  = 20,
+animate(p, duration = 7, fps  = 20,
         height = 700, width = 1000)
 
 # Save it
