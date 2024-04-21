@@ -131,9 +131,9 @@ myBigrams %>%
 
 # Save the plot
 
-# For ggsave text sizing
-showtext_opts(dpi = 300)
-# Save plot
-ggsave(here("2024-03-12/2024-03-12.png"))
+# # For ggsave text sizing
+# showtext_opts(dpi = 300)
+# # Save plot
+# ggsave(here("2024-03-12/2024-03-12.png"))
 
 
