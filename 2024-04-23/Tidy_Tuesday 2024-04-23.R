@@ -15,18 +15,38 @@ pacman::p_load(
   janitor,        # some efficient data cleaning stuff
   camcorder,      # record the making of the plot into a gif
   tidytuesdayR,   # download Tidy Tuesday Data
-  ggraph,         # network graphs and such
-  tidygraph,      # network graphs and such
   glue            # glue together formatted text
 )  
 
 # Load and wrangle data --------------------------------------------------------
 
+# Load
+myData <- tidytuesdayR::tt_load(2024, week = 17)
+myData <- myData$outer_space_objects
+
+# Explore a little
+myDataSum <-  myData %>%
+  group_by(Entity) %>%
+  summarise(num_objects = sum(num_objects)) %>%
+  arrange(desc(num_objects))
+
+# Wrangle 
+myData <- myData %>%
+  select(-Code) %>%
+  pivot_wider(names_from = Entity, values_from = num_objects) %>%
+  mutate(`Rest of World` = rowSums(., na.rm = TRUE)-`United States`-China-Russia-World-Year) %>%
+  select(Year, `United States`, China, Russia, `Rest of World`) %>%
+  pivot_longer(cols = c(`United States`, China, Russia, `Rest of World`), 
+               names_to = "Country", values_to = "Objects") %>%
+  mutate(Country = factor(Country, levels = c("United States", "China", "Russia", "Rest of World")))
+
+
+
 
 
 # Record Plot Making (My first time doing so)-----------------------------------
 # gg_record(
-#   dir = here("2024-04-16/recording"),
+#   dir = here("2024-04-23/recording"),
 #   device = "png",
 #   width = 7,
 #   height = 5,
@@ -42,18 +62,18 @@ pacman::p_load(
 
 # Save color palette
 
-myPal <- paletteer::paletteer_d("NineteenEightyR::miami1")
+myPal <- paletteer::paletteer_d("ltc::fernande")
 
-back_colour =  myPal[2]
+back_colour =  "#E1F2FE"
 strong_text = lighten("black",0.2)
 weak_text = lighten(strong_text, 0.25)
 
 # Fonts
 
 # Main Font
-font_add(family = "Roboto", 
-         regular = "C:/USERS/GVAND/APPDATA/LOCAL/MICROSOFT/WINDOWS/FONTS/ROBOTO-REGULAR.ttf",
-         bold = "C:/USERS/GVAND/APPDATA/LOCAL/MICROSOFT/WINDOWS/FONTS/ROBOTO-BOLD.ttf")
+font_add(family = "Poppins", 
+         regular = "C:/USERS/GVAND/APPDATA/LOCAL/MICROSOFT/WINDOWS/FONTS/Poppins-Regular.ttf",
+         bold = "C:/USERS/GVAND/APPDATA/LOCAL/MICROSOFT/WINDOWS/FONTS/Poppins-Bold.ttf")
 
 
 # Symbols
@@ -63,8 +83,8 @@ font_add(family = "Font Awesome 6 Brands",
 # Make the fonts work
 showtext_auto()
 
-main_font = "Roboto"
-title_font = "Roboto"
+main_font = "Poppins"
+title_font = "Poppins"
 
 
 
@@ -80,7 +100,7 @@ linkedin_icon <- "\uf08c"
 linkedin_username <- "Gregory Vander Vinne"
 
 
-my_caption <- glue("<b>Data: </b> Shiny on CRAN  ",
+my_caption <- glue("<b>Data: </b> UN Office for Outer Space Affairs: Online index of objects launched into outer space  ",
                    " \n <b>Graphic: </b>",
                    "<span style='font-family:\"Font Awesome 6 Brands\";'>{github_icon};</span>
                    <span style='color: #3B3B3B'>{github_username}</span>   ",
@@ -93,12 +113,65 @@ my_caption <- glue("<b>Data: </b> Shiny on CRAN  ",
 
 # The Actual Plot --------------------------------------------------------------
 
+ggplot() + 
+  geom_area(data = myData, aes(x = Year, y = Objects, 
+                               fill = Country, color = Country), 
+            alpha = 0.8) +
+  scale_fill_manual(values = myPal, name = "") + 
+  scale_colour_manual(values = myPal, name = "") + 
+  labs(title = "An Astronomical Number of Objects in Outer Space", 
+       subtitle = "This stacked area chart illustrates the number of objects
+       launched into outer space each year from 1957 to 2021 by country according
+       to UN estimates that cover about 88% of objects launched. There is some
+       double-counting, as objects launched jointly by several countries are 
+       recorded once for each country.", 
+       caption = my_caption) + 
+  ylab("Objects Launched Into Space") + 
+  theme_classic(base_size = 9) +
+  theme(
+    legend.position = c(0.25, 0.75),
+    legend.background = element_rect(fill = back_colour),
+    panel.background = element_rect(fill = back_colour,
+                                    color = back_colour),
+    plot.background = element_rect(fill = back_colour, 
+                                   colour = back_colour),
+    plot.caption.position = "plot",
+    plot.title.position = "plot",
+    plot.title = element_textbox_simple(size = rel(2),
+                                        family = title_font,
+                                        face = "bold",
+                                        color = strong_text,
+                                        margin = margin(8, 0, 12, 8)),
+    plot.subtitle = element_textbox_simple(size = rel(1.1),
+                                           family = main_font,
+                                           colour = weak_text,
+                                           margin = margin(0, 0, 12, 8)),
+    axis.line = element_line(color = weak_text), 
+    axis.ticks = element_blank(),
+    axis.title.x = element_blank(),
+    axis.title.y = element_text(size = rel(1.1),
+                                family = main_font,
+                                colour = weak_text,
+                                margin = margin(0, 6, 0, 8)),
+    axis.text = element_text(size = rel(1),
+                               family = main_font,
+                               colour = weak_text,
+                               margin = margin(0, 2, 0, 0)),
+    plot.caption = element_markdown(size = rel(0.8),
+                                    colour = weak_text,
+                                    family = main_font,
+                                    hjust = c(0), 
+                                    margin = margin(8,0,0,8)),
+    text = element_text(colour = weak_text, lineheight = 1.1)
+  )
+
+  
 
 
 # For ggsave text sizing
 showtext_opts(dpi = 300)
 # Save plot
-ggsave(here("2024-04-23/2024-04-23.png"), height = 7, width = 9)
+ggsave(here("2024-04-23/2024-04-23.png"), height = 6, width = 8)
 
 
 
