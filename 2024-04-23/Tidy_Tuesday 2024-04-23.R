@@ -44,7 +44,7 @@ myData <- myData %>%
 
 
 
-# Record Plot Making (My first time doing so)-----------------------------------
+# Record Plot Making------------------------------------------------------------
 # gg_record(
 #   dir = here("2024-04-23/recording"),
 #   device = "png",
