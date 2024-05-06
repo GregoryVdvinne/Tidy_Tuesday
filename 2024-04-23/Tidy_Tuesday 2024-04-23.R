@@ -175,10 +175,10 @@ ggsave(here("2024-04-23/2024-04-23.png"), height = 6, width = 8)
 
 
 
-gg_playback(
-  name = here("2024-04-23/2024-04-23_recording.gif"),
-  first_image_duration = 4,
-  last_image_duration = 20,
-  frame_duration = .25,
-  background = "white"
-)
+# gg_playback(
+#   name = here("2024-04-23/2024-04-23_recording.gif"),
+#   first_image_duration = 4,
+#   last_image_duration = 20,
+#   frame_duration = .25,
+#   background = "white"
+# )
