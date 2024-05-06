@@ -127,7 +127,7 @@ ggplot(data = myData, aes(x = `Median Age Of Public Paid Employees`,
   scale_color_manual(values = myPal, name ="") +
   scale_shape_manual(values = c(16, 17), name = "") + 
   labs(title = "Median Ages of Public and Private Sector Workers", 
-       subtitle = paste("Workers in", 
+       subtitle = paste("In this plot, each point represents a country. Workers in", 
                         "<b><span style='color:", myPal[1], "'>Europe and Central Asia </span></b>",
                         "tend to be older than workers in",
                         "<b><span style='color:", myPal[2], "'>Latin America and The Carribean.</span></b>",
@@ -182,17 +182,17 @@ ggplot(data = myData, aes(x = `Median Age Of Public Paid Employees`,
 
 
 
-# # For ggsave text sizing
-# showtext_opts(dpi = 300)
-# # Save plot
-# ggsave(here("2024-04-30/2024-04-30.png"), height = 6, width = 8)
+# For ggsave text sizing
+showtext_opts(dpi = 300)
+# Save plot
+ggsave(here("2024-04-30/2024-04-30.png"), height = 6, width = 8)
 
 
 
-gg_playback(
-  name = here("2024-04-30/2024-04-30_recording.gif"),
-  first_image_duration = 4,
-  last_image_duration = 20,
-  frame_duration = .25,
-  background = "white"
-)
+# gg_playback(
+#   name = here("2024-04-30/2024-04-30_recording.gif"),
+#   first_image_duration = 4,
+#   last_image_duration = 20,
+#   frame_duration = .25,
+#   background = "white"
+# )
