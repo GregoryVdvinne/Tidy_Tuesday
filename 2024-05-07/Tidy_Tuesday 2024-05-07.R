@@ -41,14 +41,14 @@ myData <- tuesdata$rolling_stone %>%
 
 
 # Record Plot Making------------------------------------------------------------
-# gg_record(
-#   dir = here("2024-05-07/recording"),
-#   device = "png",
-#   width = 7,
-#   height = 5,
-#   units = "in",
-#   dpi = 100
-# )
+gg_record(
+  dir = here("2024-05-07/recording"),
+  device = "png",
+  width = 7,
+  height = 5,
+  units = "in",
+  dpi = 100
+)
 
 # gg_stop_recording()
 
@@ -173,12 +173,12 @@ ggsave(here("2024-05-07/2024-05-07.png"), height = 6, width = 8)
 
 
 
-# gg_playback(
-#   name = here("2024-05-07/2024-05-07_recording.gif"),
-#   first_image_duration = 4,
-#   last_image_duration = 20,
-#   frame_duration = .25,
-#   background = "white"
-# )
+gg_playback(
+  name = here("2024-05-07/2024-05-07_recording.gif"),
+  first_image_duration = 4,
+  last_image_duration = 20,
+  frame_duration = .25,
+  background = "white"
+)
 
 
