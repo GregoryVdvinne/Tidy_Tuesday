@@ -95,14 +95,14 @@ my_subtitle <- paste(subtitle = "This plot shows the distribution of attendance 
 
 
 # Record Plot Making------------------------------------------------------------
-gg_record(
-  dir = here("2024-07-16/recording"),
-  device = "png",
-  width = 7,
-  height = 5,
-  units = "in",
-  dpi = 100
-)
+# gg_record(
+#   dir = here("2024-07-16/recording"),
+#   device = "png",
+#   width = 7,
+#   height = 5,
+#   units = "in",
+#   dpi = 100
+# )
 
 # gg_stop_recording()
 
@@ -159,16 +159,16 @@ ggplot(myData, aes(y = attendance, x = season, color = season, fill = season)) +
 
 
 
-# # For ggsave text sizing
-# showtext_opts(dpi = 300)
-# # Save plot
-# ggsave(here("2024-07-16/2024-07-16.png"), height = 6, width = 8)
+# For ggsave text sizing
+showtext_opts(dpi = 300)
+# Save plot
+ggsave(here("2024-07-16/2024-07-16.png"))
 
 
-gg_playback(
-  name = here("2024-07-16/2024-07-16_recording.gif"),
-  first_image_duration = 4,
-  last_image_duration = 20,
-  frame_duration = .25,
-  background = "white"
-)
+# gg_playback(
+#   name = here("2024-07-16/2024-07-16_recording.gif"),
+#   first_image_duration = 4,
+#   last_image_duration = 20,
+#   frame_duration = .25,
+#   background = "white"
+# )
