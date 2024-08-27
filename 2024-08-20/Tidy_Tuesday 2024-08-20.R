@@ -16,10 +16,7 @@ pacman::p_load(
   camcorder,      # record the making of the plot into a gif
   tidytuesdayR,   # download Tidy Tuesday Data
   paletteer,      # color palettes
-  ggpointdensity, # point density plots
   gganimate,      # animated ggplots
-  ggflags,        # Flags in ggplots
-  countrycode,    # get two digit codes for countries to match w/ ggflags
   glue            # glue together formatted text
 )  
 
