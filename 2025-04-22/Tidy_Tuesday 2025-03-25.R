@@ -29,7 +29,7 @@ my_data <- my_data |>
   mutate(year = year(date), 
          date = as.Date(format(my_data$date, "2025-%m-%d")))
 
-quantiles <- quantile(my_data$fatalities_count, probs = seq(0, 1, by = 1/5))
+quantiles <- quantile(my_data$fatalities_count, probs = seq(0, 1, by = 1/6))[2:7]
 
 
 
@@ -39,8 +39,8 @@ quantiles <- quantile(my_data$fatalities_count, probs = seq(0, 1, by = 1/5))
 
 my_pal <- rev(paletteer::paletteer_d("RColorBrewer::OrRd")[2:7])
 
-back_colour =  "#FAFAFF"
-strong_text = "black"
+back_colour =  "white"
+strong_text = lighten("black", 0.1)
 weak_text = lighten(strong_text, 0.1)
 line_colour = weak_text
 
@@ -71,25 +71,30 @@ line_colour = weak_text
 github_icon <- "&#xf09b"
 github_username <- "GregoryVdvinne  "
 
-twitter_icon <- "\uf099"
-twitter_username <- "@GregoryVdvinne  "
+bluesky_icon <- "\e671"
+bluesky_username <- "@GregoryVdvinne  "
 
 linkedin_icon <- "\uf08c"
 linkedin_username <- "Gregory Vander Vinne"
 
 
 
-my_caption <- glue("<b>Data: </b>  Amazon's Annual Reports")
-
-my_subtitle <- glue( "An informative subtitle ",
-                    " \n ", 
-                    " \n <b>Graphic: </b>", 
-                    "<span style='font-family:\"Font Awesome 6 Brands\";'>{github_icon};</span>
+my_caption <- glue("<b>Data: </b> osf.io/qnrg6",
+                   " \n ", 
+                   " \n <b>Graphic: </b>", 
+                   "<span style='font-family:\"Font Awesome 6 Brands\";'>{github_icon};</span>
                    <span style='color: #3B3B3B'>{github_username}</span>   ",
-                    "<span style='font-family:\"Font Awesome 6 Brands\";'>{twitter_icon};</span>
+                   "<span style='font-family:\"Font Awesome 6 Brands\";'>{bluesky_icon};</span>
                    <span style='color: #3B3B3B'>{twitter_username}  </span>   ",
-                    "<span style='font-family:\"Font Awesome 6 Brands\";'>{linkedin_icon};</span>
+                   "<span style='font-family:\"Font Awesome 6 Brands\";'>{linkedin_icon};</span>
                    <span style='color: #3B3B3B'>{linkedin_username}</span>")
+
+my_subtitle <- paste("This Horizon Plot shows daily fatalities from car crashes
+                    in the USA from 1992 to 2016.",
+                    "<b><span style='color:", my_pal[1], "'>With darker red indicating more fatilies,</span></b>",
+                    "the plot illustrates that in the early months of the year, 
+                    there are fewer fatalities, and that there was a drop in 
+                    fatilies staring around 2008")
 
 
 # Record Plot Making------------------------------------------------------------
@@ -113,57 +118,62 @@ cutpoints  <- tibble(
   mutate(names = factor(names, rev(names))) %>% 
   arrange(names)
 
-ori <- 142
+ori <- min(my_data$fatalities_count)
 
 
 # Plot
 ggplot(my_data, aes(x = date, y = fatalities_count, fill = ..Cutpoints..)) + 
   geom_horizon(origin = ori, horizonscale = quantiles) +
-  scale_fill_manual(values = my_pal) +
-  facet_grid(year~.) + 
+  scale_fill_manual(values = my_pal, 
+                    name = "Fatilities") +
+  facet_grid(year~., switch = "y") + 
   scale_x_date(expand=c(0,0), 
                date_breaks = "1 month", 
                date_labels = "%b") +
-  labs(title = "Daily Fatal Car Crashes in The USA") + 
+  labs(title = "Daily Motor Vehicle Accident Fatalities in The USA", 
+       subtitle = my_subtitle,
+       caption = my_caption) + 
   theme(
-    panel.spacing.y=unit(0, "lines"),
-    strip.text.y = element_text(size = 7, angle = 0, hjust = 0),
+    panel.spacing.y = unit(0, "lines"),
+    strip.placement = "outside",
+    strip.text.y.left = element_text(size = rel(0.9), 
+                                     # family = main_font
+                                     color = strong_text,
+                                     angle = 0, 
+                                     hjust = 0),
+    strip.background.y = element_rect(fill = back_colour, color = NA),
+    axis.text.x = element_text(size = rel(0.9), 
+                                     # family = main_font
+                                     color = strong_text,
+                                     angle = 0, 
+                                     hjust = 0),
     axis.text.y = element_blank(),
-    axis.title.y = element_blank(),
+    axis.title = element_blank(),
     axis.ticks.y = element_blank(),
-    panel.border = element_blank()
+    panel.border = element_blank(),
+    # panel.grid = element_blank(),
+    panel.background = element_rect(fill = back_colour,
+                                    color = back_colour),
+    plot.background = element_rect(fill = back_colour,
+                                   colour = back_colour),
+    plot.caption.position = "plot",
+    plot.title.position = "plot",
+    plot.title = element_textbox_simple(size = rel(1.75),
+                                        # family = main_font,
+                                        face = "bold",
+                                        color = strong_text,
+                                        margin = margin(8, 0, 10, 0)),
+    plot.subtitle = element_textbox_simple(size = rel(1),
+                                          # family = main_font,
+                                          colour = weak_text,
+                                          margin = margin(0, 0, 10, 0)),
+    plot.caption = element_markdown(size = rel(0.75),
+                                    colour = weak_text,
+                                    # family = main_font,
+                                    hjust = c(0),
+                                    margin = margin(10,0,0,0))
   ) 
-  # Theme
-  # theme_minimal(base_size = 10) +
-  # theme(
-  #   legend.position = "bottom",
-  #   panel.grid = element_blank(),
-  #   panel.background = element_rect(fill = back_colour,
-  #                                   color = back_colour),
-  #   plot.background = element_rect(fill = back_colour,
-  #                                  colour = back_colour),
-  #   plot.caption.position = "plot",
-  #   plot.title.position = "plot",
-  #   plot.title = element_textbox_simple(size = rel(2.2),
-  #                                       # family = main_font,
-  #                                       face = "bold",
-  #                                       color = strong_text,
-  #                                       margin = margin(8, 0, 10, 0)),
-  #   plot.subtitle = element_markdown(size = rel(1.1),
-  #                                          # family = main_font,
-  #                                          colour = weak_text,
-  #                                          margin = margin(0, 0, 10, 0)),
-  #   axis.title.x = element_blank(),
-  #   axis.title.y = element_blank(),
-  #   axis.text = element_text(),
-  #   plot.caption = element_markdown(size = rel(0.8),
-  #                                   colour = weak_text,
-  #                                   # family = main_font,
-  #                                   hjust = c(0),
-  #                                   margin = margin(10,0,0,0))
-  # )
-
-
+ 
 
 # # For ggsave text sizing
 # showtext_opts(dpi = 300)
